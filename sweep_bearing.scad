@@ -38,7 +38,9 @@ difference(){
         }
         //BUFFER FOR SWEEP BEARING HOLES
         for(SIGN = [-1,1]){
-            translate([structure_slot_length/2 * SIGN,0,0])
+            translate([structure_slot_length/2 * SIGN,
+            0,
+            -sweep_bearing_hole_height/4]) // div 4, cause top of bar not middle
             cube([
                 sweep_bearing_hole_depth,
                 sweep_bearing_hole_width,
@@ -51,7 +53,9 @@ difference(){
     
     //BEGIN holes (subtraction)
     for(SIGN = [1,-1]){
-        translate([structure_slot_length/2 * SIGN,0,0]){
+        translate([structure_slot_length/2 * SIGN,
+        0,
+        -sweep_bearing_hole_height/4]){
             rotate([0,90,0]){
                 cylinder(d=6, 6, center=true);
             }
