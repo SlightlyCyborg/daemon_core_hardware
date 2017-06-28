@@ -1,16 +1,16 @@
-structure_slot_w = 35;
-structure_slot_l = 125;
+structure_slot_width = 35;
+structure_slot_length = 125;
 
-sweep_bearing_w = structure_slot_w + 20;
+sweep_bearing_width = structure_slot_width + 20;
 
 //SWEEP_BEARING_LEGS
-sweep_bearing_leg_l = structure_slot_l + 2;
+sweep_bearing_leg_length = structure_slot_length + 2;
 sweep_bearing_leg_width = 2;
 sweep_bearing_leg_height = 4;
 
 for(SIGN = [-1,1]){
-translate([0,SIGN * (sweep_bearing_w/2),0])
-cube([structure_slot_l,
+translate([0,SIGN * (sweep_bearing_width/2),0])
+cube([structure_slot_length,
       sweep_bearing_leg_width,
       sweep_bearing_leg_height],
       center=true);
@@ -27,16 +27,16 @@ difference(){
     union(){
         //SWEEP_BEARING_CROSS_BARS
         for(SIGN = [-1,1]){
-            translate([structure_slot_l/2 * SIGN, 0,0]){
+            translate([structure_slot_length/2 * SIGN, 0,0]){
                 cube([sweep_bearing_cross_bar_depth, 
-                      sweep_bearing_w + sweep_bearing_leg_width,
+                      sweep_bearing_width + sweep_bearing_leg_width,
                       sweep_bearing_cross_bar_height],
                       center = true);
            }
         }
         //BUFFER FOR SWEEP BEARING HOLES
         for(SIGN = [-1,1]){
-            translate([structure_slot_l/2 * SIGN,0,0])
+            translate([structure_slot_length/2 * SIGN,0,0])
             cube([
                 sweep_bearing_hole_depth,
                 sweep_bearing_hole_width,
