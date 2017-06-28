@@ -64,6 +64,101 @@ difference(){
     }
 }
 
+//SWEEP SERVO HOLSTER
+{
+    sweep_servo_holster_slot_depth = 2;          // X
+    sweep_servo_holster_slot_width = 10;         // Y
+    sweep_servo_holster_slot_height  = 8;       // Z
+    
+    servo_connector_depth = 6;
+    
+    servo_depth_until_prong = 13;
+    servo_height = 12;
+    servo_main_body_width = 22;
+    servo_prong_depth = 2;
+    
+    sweep_servo_holster_main_body_width_clearance = 3;
+    sweep_servo_holster_prong_clearance = 3;
+    
+    
+    translate([
+    //PUT 'ORIGIN' AT CENTER OF FIRST PRONG
+    
+        -sweep_bearing_leg_length/2 -             // X
+        servo_connector_depth       -
+        servo_depth_until_prong     +
+        sweep_servo_holster_slot_depth,
+        
+        
+        0,                                          // Y
+        
+        -sweep_servo_holster_slot_height/2 +
+        sweep_bearing_cross_bar_height/2,                                          // Z                           
+        ]){ 
+            
+        //sweep_servo_holster_slot
+        {
+            for(NUM=[0,1]){
+                for(SIGN=[1,-1]){
+                    translate([
+                   
+                    -NUM *                                                   // X
+                    (sweep_servo_holster_prong_clearance +
+                    sweep_servo_holster_slot_depth/2),                                         
+                    
+                    SIGN *                                                   // Y
+                    (sweep_servo_holster_slot_width/2 +
+                    servo_main_body_width/2 + 
+                    sweep_servo_holster_main_body_width_clearance/2), 
+                    
+                    0                                                        // Z
+                    ]){
+                    cube([
+                        sweep_servo_holster_slot_depth,   // X
+                        sweep_servo_holster_slot_width,   // Y
+                        sweep_servo_holster_slot_height   // Z
+                         ],
+                        center=true);
+                    }
+                }
+            }
+        }
+        //END sweep_servo_holster_slot
+        
+        //connect the slot to the body
+
+        for(OUTER=[0,1]){
+            bridge_width = 1;
+            bridge_depth = 
+                servo_connector_depth +
+                servo_depth_until_prong +
+                (OUTER *
+                    (servo_prong_depth +
+                    sweep_servo_holster_slot_depth));
+        
+            for(SIGN = [-1,1]){  
+                translate([
+                bridge_depth/4 + 4 + .75 + OUTER * -4,  //X with magic number?
+                
+                SIGN *
+                ( OUTER * sweep_servo_holster_slot_width +
+                 servo_main_body_width/2 + 
+                 sweep_servo_holster_main_body_width_clearance/2 +   //Y
+                 bridge_width/2),
+                
+                sweep_bearing_cross_bar_height/2                       //Z
+                ]){
+                    cube([
+                        bridge_depth,
+                        bridge_width,
+                        sweep_bearing_cross_bar_height
+                    ],
+                    center = true);
+                }
+            }
+        }   
+    }  
+}
 
 
 
