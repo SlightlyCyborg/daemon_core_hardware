@@ -1,3 +1,5 @@
+$fn = 30;
+
 structure_slot_width = 35;
 structure_slot_length = 125;
 
@@ -44,6 +46,17 @@ difference(){
             ],
             center=true);
         }
+    }
+    //END union
+    
+    //BEGIN holes (subtraction)
+    for(SIGN = [1,-1]){
+        translate([structure_slot_length/2 * SIGN,0,0]){
+            rotate([0,90,0]){
+                cylinder(d=6, 6, center=true);
+            }
+        }
+    
     }
 }
 
