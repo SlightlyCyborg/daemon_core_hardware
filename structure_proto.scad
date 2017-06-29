@@ -166,9 +166,9 @@ cube([4,5,5],center=true);
 }
 
 //Non Wire
-translate([-DOUBLE_RISER_X-3,CENTER_Y,3]){
+translate([-DOUBLE_RISER_X,CENTER_Y,3]){
     rotate([0,90,0]){
-        cylinder(d=5, 6);}
+        cylinder(d=5, 3);}
 }
 
 
