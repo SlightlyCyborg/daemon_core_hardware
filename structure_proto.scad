@@ -155,15 +155,20 @@ cube([6.5,5,2]);
 
 //Sweep Axles
 //Wire
+difference(){
 translate([DOUBLE_RISER_X+3,CENTER_Y,3]){
     rotate([0,90,0]){
-        cylinder(d=5, 5);}
+        cylinder(d=5, 7);}
+}
+translate([DOUBLE_RISER_X+3+5.1,CENTER_Y,3 + 2/3 * 5]){
+cube([4,5,5],center=true);
+}
 }
 
 //Non Wire
-translate([-DOUBLE_RISER_X-9,CENTER_Y,3]){
+translate([-DOUBLE_RISER_X-3,CENTER_Y,3]){
     rotate([0,90,0]){
-        cylinder(d=5, 12);}
+        cylinder(d=5, 6);}
 }
 
 
