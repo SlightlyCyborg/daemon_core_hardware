@@ -20,7 +20,7 @@ foo_z
 $fn = 30;
 
 structure_slot_width = 35;
-sweep_bearing_width = structure_slot_width + 20;
+sweep_bearing_width = structure_slot_width + 17;
 sweep_bearing_leg_width = 2;
 
 
@@ -30,7 +30,7 @@ true_sweep_bearing_width =
 
 platform_height = 2;
 platform_depth = 30;
-platform_width = true_sweep_bearing_width + 6;
+platform_width = true_sweep_bearing_width;
 
 above_hole_height = 2;
 hole_dia          = 7;
