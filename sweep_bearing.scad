@@ -195,7 +195,33 @@ difference(){
                     center=true);  
                 }
             }
-        }  
+        } 
+       
+        //BACK BRIDGE CROSSBAR
+        translate([
+        //----------X----------
+        0
+        -(
+              servo_prong_depth +
+              sweep_servo_holster_prong_clearance +
+              sweep_servo_holster_slot_depth +
+              back_bridge_depth +
+              back_bridge_width/2
+        ),
+        //----------Y----------
+        0,
+        sweep_bearing_cross_bar_height/2
+        ]){
+            cube([
+            2,
+               sweep_servo_holster_slot_width *2 +
+               servo_main_body_width + 
+               sweep_servo_holster_main_body_width_clearance +
+               back_bridge_width *2,
+            sweep_bearing_cross_bar_height
+            ],
+            center=true);
+        }
     }   
 }
 
