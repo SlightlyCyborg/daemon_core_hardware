@@ -158,7 +158,7 @@ cube([6.5,5,2]);
 difference(){
 translate([DOUBLE_RISER_X+3,CENTER_Y,3]){
     rotate([0,90,0]){
-        cylinder(d=5, 7);}
+        cylinder(d=5, 6);}
 }
 translate([DOUBLE_RISER_X+3+5.1,CENTER_Y,3 + 2/3 * 5]){
 cube([4,5,5],center=true);
