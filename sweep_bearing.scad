@@ -8,7 +8,7 @@ sweep_bearing_width = structure_slot_width + 20;
 //SWEEP_BEARING_LEGS
 sweep_bearing_leg_length = structure_slot_length + 2;
 sweep_bearing_leg_width = 2;
-sweep_bearing_leg_height = 4;
+sweep_bearing_leg_height = 5;
 
 for(SIGN = [-1,1]){
 translate([0,SIGN * (sweep_bearing_width/2),0])
@@ -19,7 +19,7 @@ cube([structure_slot_length,
 }
 
 sweep_bearing_cross_bar_depth = 2;
-sweep_bearing_cross_bar_height = 4;
+sweep_bearing_cross_bar_height = 5;
 sweep_bearing_hole_depth = sweep_bearing_cross_bar_depth;
 sweep_bearing_hole_height = 8;
 sweep_bearing_hole_width = 8;
@@ -153,7 +153,8 @@ difference(){
                  sweep_servo_holster_main_body_width_clearance/2 +   //Y
                  bridge_width/2),
                 
-                sweep_bearing_cross_bar_height/2                       //Z
+                -sweep_bearing_cross_bar_height/2 + 
+                 sweep_servo_holster_slot_height/2                       //Z
                 ]){
                     cube([
                         bridge_depth,
@@ -194,7 +195,9 @@ difference(){
                         + back_bridge_width/2
                     ),
                     //---------------Z--------------------
-                    sweep_bearing_cross_bar_height/2 ,
+              
+                   -sweep_bearing_cross_bar_height/2 + 
+                   sweep_servo_holster_slot_height/2 ,
                 ]){
                     cube([
                     back_bridge_depth,
@@ -218,7 +221,7 @@ difference(){
         ),
         //----------Y----------
         0,
-        sweep_bearing_cross_bar_height/2
+        -sweep_bearing_cross_bar_height/2 + sweep_servo_holster_slot_height/2
         ]){
             cube([
             2,
@@ -231,6 +234,18 @@ difference(){
             center=true);
         }
     }   
+}
+
+//Y BEARING PRONGS
+
+for(SIGN = [-1, 1]){
+translate([
+    0,
+    SIGN * (sweep_bearing_width+sweep_bearing_leg_width)/2],
+    0){
+    rotate([SIGN*-90,0,0])
+    cylinder(d=5, 6);
+    }
 }
 
 
