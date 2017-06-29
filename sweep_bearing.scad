@@ -6,13 +6,13 @@ structure_slot_length = 125;
 sweep_bearing_width = structure_slot_width + 20;
 
 //SWEEP_BEARING_LEGS
-sweep_bearing_leg_length = structure_slot_length + 2;
+sweep_bearing_leg_length = structure_slot_length + 2.5;
 sweep_bearing_leg_width = 2;
 sweep_bearing_leg_height = 5;
 
 for(SIGN = [-1,1]){
 translate([0,SIGN * (sweep_bearing_width/2),0])
-cube([structure_slot_length,
+cube([sweep_bearing_leg_length,
       sweep_bearing_leg_width,
       sweep_bearing_leg_height],
       center=true);
@@ -29,7 +29,7 @@ difference(){
     union(){
         //SWEEP_BEARING_CROSS_BARS
         for(SIGN = [-1,1]){
-            translate([structure_slot_length/2 * SIGN, 0,0]){
+            translate([sweep_bearing_leg_length/2 * SIGN, 0,0]){
                 cube([sweep_bearing_cross_bar_depth, 
                       sweep_bearing_width + sweep_bearing_leg_width,
                       sweep_bearing_cross_bar_height],
@@ -38,7 +38,7 @@ difference(){
         }
         //BUFFER FOR SWEEP BEARING HOLES
         for(SIGN = [-1,1]){
-            translate([structure_slot_length/2 * SIGN,
+            translate([sweep_bearing_leg_length/2 * SIGN,
             0,
             -sweep_bearing_hole_height/4]) // div 4, cause top of bar not middle
             cube([
@@ -53,7 +53,7 @@ difference(){
     
     //BEGIN holes (subtraction)
     for(SIGN = [1,-1]){
-        translate([structure_slot_length/2 * SIGN,
+        translate([sweep_bearing_leg_length/2 * SIGN,
         0,
         -sweep_bearing_hole_height/4]){
             rotate([0,90,0]){
@@ -145,7 +145,7 @@ difference(){
         
             for(SIGN = [-1,1]){  
                 translate([
-                bridge_depth/4 + 3 + .75 + OUTER * -4.25,  //X with magic number?
+                bridge_depth/4 + 3 + .75 + OUTER * -6,  //X with magic number?
                 
                 SIGN *
                 ( OUTER * sweep_servo_holster_slot_width +
