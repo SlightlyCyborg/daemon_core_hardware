@@ -1,7 +1,7 @@
 include <MCAD/involute_gears.scad>
 $fn = 30;
 
-prong_dia = 5;
+prong_dia = 5.25; //form fit hot!!!!
 prong_depth = 3;
 rim_thickness = 5;
 hole_wall_thickness = 1.5;
