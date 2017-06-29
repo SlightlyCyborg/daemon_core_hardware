@@ -82,6 +82,7 @@ difference(){
     
     sweep_servo_holster_main_body_width_clearance = 3;
     sweep_servo_holster_prong_clearance = 3;
+    back_bridge_wire_clearance = 1;
     
 
     
@@ -180,7 +181,14 @@ difference(){
                     //----------------Y----------------
                     SIGN *
                     (
-                        (OUTER * sweep_servo_holster_slot_width) +
+                        (OUTER * 
+                            (
+                                sweep_servo_holster_slot_width-
+                                back_bridge_wire_clearance 
+                                //sucks to not have boolean NOT
+                            )
+                        ) +    
+                        back_bridge_wire_clearance+ // sucks to not have boolean NOT
                         (servo_main_body_width + 
                          sweep_servo_holster_main_body_width_clearance)/2
                         + back_bridge_width/2
