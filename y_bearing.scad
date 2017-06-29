@@ -58,8 +58,8 @@ arm_depth = 2;
 cube([platform_depth, platform_width+arm_depth*2, platform_height],
     center=true);
 //Servo bed
-translate([0,0,platform_height/2])
-cube([platform_depth, platform_width+arm_depth*2, servo_bed_height],
+translate([0,(platform_width+arm_depth*2)/4,platform_height/2 + servo_bed_height/2])
+cube([platform_depth, (platform_width+arm_depth*2)/2, servo_bed_height],
     center=true);
 
 difference(){
