@@ -3,6 +3,11 @@ $fn = 30;
 structure_slot_width = 35;
 structure_slot_length = 125;
 
+servo_depth_until_prong = 13;
+servo_back_depth_from_prong = 16;
+servo_connector_depth = 6;
+sweep_servo_holster_prong_clearance = 3;
+
 sweep_bearing_width = structure_slot_width + 20;
 
 //SWEEP_BEARING_LEGS
@@ -10,13 +15,32 @@ sweep_bearing_leg_length = structure_slot_length + 2.5;
 sweep_bearing_leg_width = 2;
 sweep_bearing_leg_height = 5;
 
-for(SIGN = [-1,1]){
-translate([0,SIGN * (sweep_bearing_width/2),0])
+translate([
+           -( 
+           servo_depth_until_prong + 
+           servo_back_depth_from_prong + 
+           sweep_servo_holster_prong_clearance +
+           servo_connector_depth + 5
+           )/2,
+           -1 * (sweep_bearing_width/2)
+           ,0])
+cube([sweep_bearing_leg_length + 
+      servo_depth_until_prong + 
+      servo_back_depth_from_prong + 
+      sweep_servo_holster_prong_clearance +
+      servo_connector_depth +
+      5,
+      sweep_bearing_leg_width,
+      sweep_bearing_leg_height],
+      center=true);
+
+
+translate([0, (sweep_bearing_width/2),0])
 cube([sweep_bearing_leg_length,
       sweep_bearing_leg_width,
       sweep_bearing_leg_height],
       center=true);
-}
+
 
 sweep_bearing_cross_bar_depth = 2;
 sweep_bearing_cross_bar_height = 5;
@@ -72,16 +96,16 @@ difference(){
     
     servo_connector_depth = 6;
     
-    servo_depth_until_prong = 13;
+
     servo_height = 12;
     servo_main_body_width = 22;
     servo_center_offset = 22/2-6;
     
     servo_prong_depth = 2;
-    servo_back_depth_from_prong = 16;
+    
     
     sweep_servo_holster_main_body_width_clearance = 3;
-    sweep_servo_holster_prong_clearance = 3;
+    
     back_bridge_wire_clearance = 1;
     
 
@@ -208,6 +232,7 @@ difference(){
             }
         } 
        
+        
         //BACK BRIDGE CROSSBAR
         translate([
         //----------X----------
@@ -220,15 +245,20 @@ difference(){
               back_bridge_width/2
         ),
         //----------Y----------
-        0,
+        
+        -(sweep_servo_holster_slot_width/2 -1 +
+                    //servo_main_body_width/2 + 
+            
+          sweep_servo_holster_main_body_width_clearance/2
+        )
+        ,
         -sweep_bearing_cross_bar_height/2 + sweep_servo_holster_slot_height/2
         ]){
             cube([
             2,
-               sweep_servo_holster_slot_width *2 +
-               servo_main_body_width + 
-               sweep_servo_holster_main_body_width_clearance +
-               back_bridge_width *2,
+            
+            sweep_bearing_width + 2
+               ,
             sweep_bearing_cross_bar_height
             ],
             center=true);
@@ -239,7 +269,7 @@ difference(){
 //Y BEARING PRONGS
 
 gear_part_of_prong = 3;
-prong_depth = 6; //doesn't count gear part
+prong_depth = 2.5; //doesn't count gear part
 prong_dia = 5;
 cut_buffer = 2; //scad leaves weird artifacts if cut doesn't overlap positive
 
@@ -254,7 +284,7 @@ difference(){
             cylinder(
                 d=prong_dia, 
                 
-                prong_depth + (SIGN + 1) * 
+                prong_depth + 2 * 
                 gear_part_of_prong/2); 
                 //Make one side (pos) unequal by (2 * gear_part_of_prong/2)
         }
