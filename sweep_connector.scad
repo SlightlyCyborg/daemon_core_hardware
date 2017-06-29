@@ -1,14 +1,14 @@
 $fn=30;
 
-prong_dia = 5;
-servo_arm_dia = 7;
+prong_dia = 5.87;
+servo_arm_dia = 7.8;
 
 
 wall_thickness = 1.5;
 component_dia = servo_arm_dia + 2*wall_thickness;
 component_depth = 9;
 
-cutaway_block_size = 5.5;
+cutaway_block_size = 5.8;
 cutaway_depth = 4;
 
 difference(){
