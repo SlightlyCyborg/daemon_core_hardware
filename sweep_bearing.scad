@@ -238,15 +238,47 @@ difference(){
 
 //Y BEARING PRONGS
 
-for(SIGN = [-1, 1]){
-translate([
-    0,
-    SIGN * (sweep_bearing_width+sweep_bearing_leg_width)/2],
-    0){
-    rotate([SIGN*-90,0,0])
-    cylinder(d=5, 6);
+gear_part_of_prong = 3;
+prong_depth = 6; //doesn't count gear part
+prong_dia = 5;
+cut_buffer = 2; //scad leaves weird artifacts if cut doesn't overlap positive
+
+difference(){
+    //POSITIVE
+    for(SIGN = [-1, 1]){
+    translate([
+        0,
+        SIGN * (sweep_bearing_width+sweep_bearing_leg_width)/2],
+        0){
+            rotate([SIGN*-90,0,0])
+            cylinder(
+                d=prong_dia, 
+                
+                prong_depth + (SIGN + 1) * 
+                gear_part_of_prong/2); 
+                //Make one side (pos) unequal by (2 * gear_part_of_prong/2)
+        }
+    }
+    
+    //NEGATIVE
+        translate([
+        0,
+        
+        (
+            sweep_bearing_width+
+            sweep_bearing_leg_width + 
+            gear_part_of_prong +
+            prong_dia/2
+            
+        )/2 +
+        prong_depth,   
+        prong_dia * 2/3 
+        ]){
+        cube([prong_dia,gear_part_of_prong + cut_buffer, prong_dia],
+        center=true);
     }
 }
+
 
 
 
