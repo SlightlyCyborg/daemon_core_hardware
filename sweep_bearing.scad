@@ -67,7 +67,7 @@ difference(){
 //SWEEP SERVO HOLSTER
 {
     sweep_servo_holster_slot_depth = 2;          // X
-    sweep_servo_holster_slot_width = 10;         // Y
+    sweep_servo_holster_slot_width = 9;         // Y
     sweep_servo_holster_slot_height  = 8;       // Z
     
     servo_connector_depth = 6;
@@ -75,11 +75,15 @@ difference(){
     servo_depth_until_prong = 13;
     servo_height = 12;
     servo_main_body_width = 22;
+    servo_center_offset = 22/2-6;
+    
     servo_prong_depth = 2;
+    servo_back_depth_from_prong = 16;
     
     sweep_servo_holster_main_body_width_clearance = 3;
     sweep_servo_holster_prong_clearance = 3;
     
+
     
     translate([
     //PUT 'ORIGIN' AT CENTER OF FIRST PRONG
@@ -90,10 +94,10 @@ difference(){
         sweep_servo_holster_slot_depth,
         
         
-        0,                                          // Y
+        servo_center_offset,                                           // Y
         
         -sweep_servo_holster_slot_height/2 +
-        sweep_bearing_cross_bar_height/2,                                          // Z                           
+        sweep_bearing_cross_bar_height/2,        // Z                           
         ]){ 
             
         //sweep_servo_holster_slot
@@ -104,7 +108,8 @@ difference(){
                    
                     -NUM *                                                   // X
                     (sweep_servo_holster_prong_clearance +
-                    sweep_servo_holster_slot_depth/2),                                         
+                     servo_prong_depth +
+                     sweep_servo_holster_slot_depth/2),                                         
                     
                     SIGN *                                                   // Y
                     (sweep_servo_holster_slot_width/2 +
@@ -128,17 +133,18 @@ difference(){
         //connect the slot to the body
 
         for(OUTER=[0,1]){
-            bridge_width = 1;
+            bridge_width = 2;
             bridge_depth = 
                 servo_connector_depth +
                 servo_depth_until_prong +
                 (OUTER *
                     (servo_prong_depth +
-                    sweep_servo_holster_slot_depth));
+                    sweep_servo_holster_slot_depth+
+                    sweep_servo_holster_prong_clearance));
         
             for(SIGN = [-1,1]){  
                 translate([
-                bridge_depth/4 + 4 + .75 + OUTER * -4,  //X with magic number?
+                bridge_depth/4 + 3 + .75 + OUTER * -4.25,  //X with magic number?
                 
                 SIGN *
                 ( OUTER * sweep_servo_holster_slot_width +
@@ -156,8 +162,41 @@ difference(){
                     center = true);
                 }
             }
-        }   
-    }  
+        } 
+        //BACK_BRIDGE
+        back_bridge_depth = servo_back_depth_from_prong + 2;
+        back_bridge_width = 2;
+        for(OUTER = [0,1]){
+            for(SIGN = [-1,1]){
+                translate([
+                    //---------------X-----------------
+                    -(
+                        servo_prong_depth +
+                        sweep_servo_holster_prong_clearance +
+                        sweep_servo_holster_slot_depth +
+                        back_bridge_depth/2
+                    ),
+                    
+                    //----------------Y----------------
+                    SIGN *
+                    (
+                        (OUTER * sweep_servo_holster_slot_width) +
+                        (servo_main_body_width + 
+                         sweep_servo_holster_main_body_width_clearance)/2
+                        + back_bridge_width/2
+                    ),
+                    //---------------Z--------------------
+                    sweep_bearing_cross_bar_height/2 ,
+                ]){
+                    cube([
+                    back_bridge_depth,
+                    back_bridge_width,
+                    sweep_bearing_cross_bar_height],
+                    center=true);  
+                }
+            }
+        }  
+    }   
 }
 
 
